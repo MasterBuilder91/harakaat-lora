@@ -91,7 +91,9 @@ def strip_diacritics(text): return HARAKAT.sub('', text)
 | 2 | `nvcc not found` | CUDA toolkit not installed | Not needed — PyTorch bundles its own CUDA libs; only driver `libcuda.so` needed |
 | 3 | `/dev/nvidia* not found` | WSL2 uses `/dev/dxg` instead of char devices | Normal for WSL2; CUDA works via `/usr/lib/wsl/lib/libcuda.so.1.1` |
 | 4 | PowerShell `The '<' operator` on git commit | Bash heredocs don't work in PowerShell | Use PS here-strings `@'...'@` for multi-line commit messages |
-| 5 | (pending) | | |
+| 5 | `apt-get update` hung for 20+ min | Stuck on slow/unresponsive Ubuntu mirror (0% CPU but no progress) | Restart WSL session: `wsl --shutdown` from PowerShell, then re-open Ubuntu |
+| 6 | `sudo kill` waiting for password | sudo timeout expired between sessions; new WSL shell needed re-auth | Kill processes by restarting WSL: `wsl --shutdown && wsl -d Ubuntu` |
+| 7 | (pending) | | |
 
 *Updated as errors are encountered during training.*
 
