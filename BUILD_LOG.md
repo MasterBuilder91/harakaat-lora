@@ -88,9 +88,21 @@ def strip_diacritics(text): return HARAKAT.sub('', text)
 | # | Error | Cause | Fix |
 |---|---|---|---|
 | 1 | `No module named pip` | Ubuntu 24.04 ships without pip | `sudo apt install python3-pip python3-venv` |
-| 2 | (pending) | | |
+| 2 | `nvcc not found` | CUDA toolkit not installed | Not needed — PyTorch bundles its own CUDA libs; only driver `libcuda.so` needed |
+| 3 | `/dev/nvidia* not found` | WSL2 uses `/dev/dxg` instead of char devices | Normal for WSL2; CUDA works via `/usr/lib/wsl/lib/libcuda.so.1.1` |
+| 4 | PowerShell `The '<' operator` on git commit | Bash heredocs don't work in PowerShell | Use PS here-strings `@'...'@` for multi-line commit messages |
+| 5 | (pending) | | |
 
 *Updated as errors are encountered during training.*
+
+---
+
+## 2026-11-25 — Repository Setup
+
+- Created GitHub repo: https://github.com/MasterBuilder91/harakaat-lora
+- Project directory: `E:\harakaat-lora` (on E: drive with 1335 GB free)
+- WSL access: `/mnt/e/harakaat-lora`
+- All large files (models, cache, venv) intentionally on E: to avoid filling C: (44.7 GB)
 
 ---
 
