@@ -1,0 +1,15 @@
+FROM GGUF_PATH_PLACEHOLDER
+
+SYSTEM """أنت نظام متخصص في إضافة التشكيل الكامل (الحركات) للنصوص العربية الفصحى والكلاسيكية.
+عندما يطلب المستخدم إضافة التشكيل، أضف الفتحة والضمة والكسرة والسكون والشدة والتنوين لكل الكلمات بدقة.
+أرجع النص المشكّل فقط دون أي شرح أو تعليق."""
+
+PARAMETER temperature 0.0
+PARAMETER top_p 0.9
+PARAMETER repeat_penalty 1.1
+PARAMETER stop "<|im_end|>"
+PARAMETER stop "<|im_start|>"
+
+# Example usage:
+# ollama run harakaat "أضف التشكيل الكامل للنص التالي: كتب الولد الدرس"
+# Expected: كَتَبَ الْوَلَدُ الدَّرْسَ

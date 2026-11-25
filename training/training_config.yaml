@@ -1,0 +1,47 @@
+# Training configuration — Qwen2.5-7B QLoRA on RTX 3060 12GB
+# Documented for reproducibility
+
+model:
+  id: Qwen/Qwen2.5-7B-Instruct
+  license: Apache-2.0
+  parameters: 7B
+  fallback: Qwen/Qwen2.5-3B-Instruct  # if OOM
+
+quantization:
+  bits: 4
+  type: nf4
+  double_quant: true
+  compute_dtype: bfloat16  # Ampere (RTX 30xx) supports BF16
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: [q_proj, k_proj, v_proj, o_proj]
+  bias: none
+
+training:
+  max_seq_length: 512
+  per_device_batch_size: 1
+  gradient_accumulation_steps: 16     # effective batch = 16
+  num_epochs: 3
+  learning_rate: 2.0e-4
+  lr_scheduler: cosine
+  warmup_ratio: 0.03
+  max_grad_norm: 0.3
+  optimizer: paged_adamw_32bit        # memory-efficient optimizer
+  gradient_checkpointing: true
+  bf16: true
+
+oom_fallback_order:
+  1: reduce max_seq_length to 384
+  2: reduce max_seq_length to 256
+  3: reduce lora_r to 8
+  4: switch to 3B model
+
+hardware:
+  gpu: NVIDIA GeForce RTX 3060
+  vram_gb: 12
+  ram_gb: 60
+  os: Ubuntu 24.04 (WSL2)
+  cuda: "13.3 (driver)"

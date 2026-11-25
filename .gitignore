@@ -1,0 +1,36 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Large model/data files (tracked via LFS or excluded)
+outputs/
+.cache/
+*.gguf
+*.bin
+*.safetensors
+*.pt
+*.pth
+
+# Data (raw)
+data/raw/
+
+# Keep prepared splits and results
+!data/train.jsonl
+!data/val.jsonl
+!data/test.jsonl
+!results/
+
+# Logs
+*.log
+runs/
+tensorboard/
+
+# OS
+.DS_Store
+Thumbs.db
